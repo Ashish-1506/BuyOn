@@ -10,7 +10,7 @@ class BuyOnApp {
         this.searchQuery = '';
         this.wishlist = [];
         this.activeFilters = {
-            priceRange: { min: 0, max: 50000 },
+            priceRange: { min: 0, max: 5000000 },
             brands: [],
             ratings: [],
             discounts: []
