@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuyOn - Your Ultimate Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="buy-on-logo">BuyOn</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <h1><i class="fas fa-shopping-bag"></i> BuyOn</h1>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search for products, brands and more...">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <div class="wishlist" id="wishlist-toggle">
+                        <i class="fas fa-heart"></i>
+                        <span>Wishlist</span>
+                        <span class="badge" id="wishlist-count">0</span>
+                    </div>
+
+                    <div class="cart" id="cart-toggle">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Cart</span>
+                        <span class="badge" id="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container">
+            <div class="nav-categories">
+                <div class="category-item active" data-category="all">All Products</div>
+                <div class="category-item" data-category="electronics">Electronics</div>
+                <div class="category-item" data-category="fashion">Fashion</div>
+                <div class="category-item" data-category="home">Home & Living</div>
+                <div class="category-item" data-category="books">Books</div>
+                <div class="category-item" data-category="sports">Sports</div>
+                <div class="category-item" data-category="beauty">Beauty</div>
+            </div>
+
+            <div class="filters-toggle" id="filters-toggle">
+                <i class="fas fa-filter"></i> Filters
+            </div>
+        </div>
+    </nav>
+
+    <!-- Filters Sidebar -->
+    <div class="filters-sidebar" id="filters-sidebar">
+        <div class="filters-header">
+            <h3>Filters</h3>
+            <button class="close-filters" id="close-filters">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="filters-content">
+            <!-- Price Range -->
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <div class="price-range">
+                    <input type="range" id="price-min" min="0" max="50000" value="0" class="price-slider">
+                    <input type="range" id="price-max" min="0" max="50000" value="50000" class="price-slider">
+                    <div class="price-values">
+                        <span>₹<span id="price-min-value">0</span></span> - 
+                        <span>₹<span id="price-max-value">50000</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="filter-group">
+                <h4>Brand</h4>
+                <div class="filter-options" id="brand-filters">
+                    <!-- Dynamic brand options will be populated here -->
+                </div>
+            </div>
+
+            <!-- Rating Filter -->
+            <div class="filter-group">
+                <h4>Customer Rating</h4>
+                <div class="rating-filters">
+                    <label><input type="checkbox" value="4"> 4★ & above</label>
+                    <label><input type="checkbox" value="3"> 3★ & above</label>
+                    <label><input type="checkbox" value="2"> 2★ & above</label>
+                    <label><input type="checkbox" value="1"> 1★ & above</label>
+                </div>
+            </div>
+
+            <!-- Discount Filter -->
+            <div class="filter-group">
+                <h4>Discount</h4>
+                <div class="discount-filters">
+                    <label><input type="checkbox" value="50"> 50% or more</label>
+                    <label><input type="checkbox" value="40"> 40% or more</label>
+                    <label><input type="checkbox" value="30"> 30% or more</label>
+                    <label><input type="checkbox" value="20"> 20% or more</label>
+                    <label><input type="checkbox" value="10"> 10% or more</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters-actions">
+            <button class="clear-filters" id="clear-filters">Clear All</button>
+            <button class="apply-filters" id="apply-filters">Apply Filters</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Banner -->
+            <section class="hero-banner">
+                <div class="banner-slide active">
+                    <div class="banner-content">
+                        <h2>Mega Sale - Up to 80% Off!</h2>
+                        <p>Shop the best deals on electronics, fashion, and more</p>
+                        <button class="cta-btn">Shop Now</button>
+                    </div>
+                    <div class="banner-image">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sort and View Options -->
+            <div class="products-header">
+                <div class="results-info">
+                    <span id="results-count">Showing all products</span>
+                </div>
+                <div class="sort-options">
+                    <label>Sort by:</label>
+                    <select id="sort-select">
+                        <option value="relevance">Relevance</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Customer Rating</option>
+                        <option value="newest">Newest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <section class="products-section">
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="load-more-btn">Load More Products</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Shopping Cart</h3>
+            <button class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="cart-content" id="cart-content">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+                <button class="continue-shopping" id="continue-shopping">Continue Shopping</button>
+            </div>
+        </div>
+
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="cart-total">
+                <div class="total-amount">
+                    <span>Total: ₹<span id="cart-total">0</span></span>
+                </div>
+                <button class="checkout-btn" id="checkout-btn">
+                    <i class="fas fa-credit-card"></i> Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div class="wishlist-sidebar" id="wishlist-sidebar">
+        <div class="wishlist-header">
+            <h3><i class="fas fa-heart"></i> My Wishlist</h3>
+            <button class="close-wishlist" id="close-wishlist">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="wishlist-content" id="wishlist-content">
+            <div class="empty-wishlist">
+                <i class="fas fa-heart"></i>
+                <p>Your wishlist is empty</p>
+                <button class="continue-shopping" id="continue-shopping-wishlist">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content product-modal-content">
+            <button class="close-modal" id="close-product-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-modal-body" id="product-modal-body">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Checkout - Guest Order</h3>
+                <button class="close-modal" id="close-checkout-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-content">
+                    <div class="checkout-summary">
+                        <h4>Order Summary</h4>
+                        <div class="order-items" id="checkout-items">
+                            <!-- Order items will be populated here -->
+                        </div>
+                        <div class="order-totals" id="checkout-totals">
+                            <!-- Order totals will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="checkout-form">
+                        <h4>Delivery Details</h4>
+                        <form id="guest-checkout-form">
+                            <div class="form-row">
+                                <input type="text" id="customer-name" placeholder="Full Name" required>
+                                <input type="tel" id="customer-phone" placeholder="Phone Number" required>
+                            </div>
+                            <input type="email" id="customer-email" placeholder="Email Address" required>
+                            <textarea id="delivery-address" placeholder="Complete Delivery Address" rows="3" required></textarea>
+                            <div class="form-row">
+                                <input type="text" id="city" placeholder="City" required>
+                                <input type="text" id="pincode" placeholder="Pincode" required>
+                            </div>
+
+                            <h4>Payment Method</h4>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cod" checked>
+                                    <span><i class="fas fa-money-bill-wave"></i> Cash on Delivery</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="card">
+                                    <span><i class="fas fa-credit-card"></i> Credit/Debit Card</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="upi">
+                                    <span><i class="fab fa-google-pay"></i> UPI Payment</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="place-order-btn">
+                                <i class="fas fa-check-circle"></i> Place Order
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About BuyOn</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Corporate Information</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Policies</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BuyOn. All rights reserved. | Made with ❤️ by Ashish Ranjan</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="products-data.js"></script>
+    <script src="cart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
